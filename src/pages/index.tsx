@@ -118,7 +118,7 @@ export default function Home() {
             alt="Smokers Haven Logo" 
             className="logo"
           />
-          <h1 className="title">Smokers Haven Inventory Manager</h1>
+          <h1 className="title">Smokers Haven Inventory Tracker</h1>
         </div>
         
         {/* <div className="actions">
