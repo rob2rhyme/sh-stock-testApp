@@ -1,6 +1,6 @@
 .tabPanel {
   flex-grow: 1;
-  padding: 1rem;
+  padding: 0 1rem 0.5rem 1rem;
   overflow-x: auto;
 }
 
