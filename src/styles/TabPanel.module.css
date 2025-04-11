@@ -1,0 +1,64 @@
+.tabPanel {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.table th {
+  background-color: #3182ce;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table tr:nth-child(even) {
+  background-color: #c2ced6;
+}
+
+.table tr:hover {
+  background-color: #ebf8ff;
+}
+
+.lowStock {
+  color: #e53e3e;
+  font-weight: bold;
+}
+
+.goodStock {
+  color: #38a169;
+  font-weight: bold;
+}
+
+.expiringSoon {
+  color: #e53e3e;
+  font-weight: bold;
+}
+
+.goodExpiry {
+  color: #38a169;
+}
+
+/* .removeButton {
+  padding: 0.25rem 0.5rem;
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background-color: #c53030;
+} */

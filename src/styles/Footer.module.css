@@ -1,0 +1,20 @@
+.footer {
+    background-color: #1a3e72;
+    color: white;
+    padding: 1rem;
+    margin-top: auto;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  
+  .footerContent {
+    text-align: center;
+  }
+  
+  .link {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  .link:hover {
+    color: #a0aec0;
+  }
