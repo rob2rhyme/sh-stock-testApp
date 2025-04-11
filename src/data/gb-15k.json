@@ -1,33 +1,33 @@
 {
     "geekbar15k": [
       {
-        "flavor": "Miami-unit",
+        "flavor": "Miami mint",
         "store": 2,
-        "home": 6,
+        "home": 4,
         "expiryDate": "2025-06-15"
       },
       {
-        "flavor": "Cool-unit",
+        "flavor": "Cool mint",
         "store": 0,
         "home": 0,
         "expiryDate": "2023-11-20"
       },
       {
-        "flavor": "Storm-unit",
+        "flavor": "Stone Mintz",
         "store": 3,
         "home": 2,
         "expiryDate": "2024-02-10"
       },
       {
-        "flavor": "Blue-unit",
+        "flavor": "Blue Mint",
         "store": 3,
         "home": 0,
         "expiryDate": "2024-01-25"
       },
       {
-        "flavor": "Deparmintz",
+        "flavor": "Peppermintz",
         "store": 3,
-        "home": 2,
+        "home": 0,
         "expiryDate": "2024-02-05"
       },
       {
@@ -37,26 +37,26 @@
         "expiryDate": "2024-01-18"
       },
       {
-        "flavor": "Black-unit",
+        "flavor": "Black-Mintz",
         "store": 0,
         "home": 0,
         "expiryDate": "2023-11-30"
       },
       {
-        "flavor": "Fucking tab",
-        "store": 23,
+        "flavor": "Fucking fab",
+        "store": 3,
         "home": 3,
         "expiryDate": "2024-03-15"
       },
       {
         "flavor": "Blow-Pop",
-        "store": 22,
+        "store": 2,
         "home": 1,
         "expiryDate": "2024-03-20"
       },
       {
-        "flavor": "Sour Apple &-pop",
-        "store": 12,
+        "flavor": "Sour Apple B-pop",
+        "store": 2,
         "home": 5,
         "expiryDate": "2024-02-28"
       },
@@ -115,19 +115,19 @@
         "expiryDate": "2024-01-25"
       },
       {
-        "flavor": "Tricy poach ice",
+        "flavor": "Juicy peach ice",
         "store": 2,
         "home": 0,
         "expiryDate": "2023-12-28"
       },
       {
-        "flavor": "White Sunny ice",
+        "flavor": "White Gummy ice",
         "store": 2,
         "home": 3,
         "expiryDate": "2024-01-18"
       },
       {
-        "flavor": "Pink lamonde",
+        "flavor": "Pink lemonade",
         "store": 2,
         "home": 0,
         "expiryDate": "2023-12-22"
@@ -141,7 +141,7 @@
       {
         "flavor": "Watermelon ice",
         "store": 2,
-        "home": 9,
+        "home": 7,
         "expiryDate": "2024-03-05"
       },
       {
@@ -151,7 +151,7 @@
         "expiryDate": "2023-12-08"
       },
       {
-        "flavor": "Mixed Mango",
+        "flavor": "Mexico Mango",
         "store": 1,
         "home": 0,
         "expiryDate": "2023-12-10"
@@ -169,7 +169,7 @@
         "expiryDate": "2023-12-30"
       },
       {
-        "flavor": "Frozen pine colada",
+        "flavor": "Frozen pina colada",
         "store": 1,
         "home": 0,
         "expiryDate": "2023-12-15"
@@ -181,19 +181,19 @@
         "expiryDate": "2023-11-25"
       },
       {
-        "flavor": "Frozen cherry apple",
+        "flavor": "Frozen Cherry Apple",
         "store": 3,
         "home": 2,
         "expiryDate": "2024-01-28"
       },
       {
-        "flavor": "Tropical Rainbow Biast",
+        "flavor": "Tropical Rainbow Blast",
         "store": 3,
         "home": 1,
         "expiryDate": "2024-02-08"
       },
       {
-        "flavor": "Dragon Malon",
+        "flavor": "Dragon Melon",
         "store": 2,
         "home": 3,
         "expiryDate": "2024-01-20"
@@ -215,12 +215,6 @@
         "store": 1,
         "home": 0,
         "expiryDate": "2023-12-05"
-      },
-      {
-        "flavor": "Feeling Tab",
-        "store": 0,
-        "home": 4,
-        "expiryDate": "2024-01-15"
       }
     ]
   }

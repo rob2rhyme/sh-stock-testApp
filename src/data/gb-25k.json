@@ -1,68 +1,68 @@
 {
     "geekbar25k": [
       {
-        "flavor": "Cool mint",
-        "store": "2",
+        "flavor": "Cool Mint",
+        "store": 2,
         "home": 2,
         "expiryDate": "2023-12-15"
       },
       {
-        "flavor": "ATL mint",
-        "store": "1",
+        "flavor": "ATL Mint",
+        "store": 2,
         "home": 1,
         "expiryDate": "2023-12-20"
       },
       {
-        "flavor": "Miami mint",
-        "store": "2",
+        "flavor": "Miami Mint",
+        "store": 0,
         "home": 0,
         "expiryDate": "2023-11-30"
       },
       {
         "flavor": "Watermelon ice",
-        "store": "3",
+        "store": 2,
         "home": 1,
         "expiryDate": "2024-01-10"
       },
       {
-        "flavor": "sourfecking fab",
+        "flavor": "Sour Fcuking fab",
         "store": 2,
         "home": 3,
         "expiryDate": "2024-02-15"
       },
       {
-        "flavor": "Drago Orange Dragon",
-        "store": "9",
+        "flavor": "Orange Dragon",
+        "store": 2,
         "home": 1,
         "expiryDate": "2023-12-05"
       },
       {
         "flavor": "Blackberry B-pop",
-        "store": "3",
+        "store": 2,
         "home": 2,
         "expiryDate": "2024-01-20"
       },
       {
         "flavor": "Strawberry B-pop",
-        "store": "4",
-        "home": 2,
+        "store": 2,
+        "home": 1,
         "expiryDate": "2024-01-15"
       },
       {
-        "flavor": "Orange fecking fab",
+        "flavor": "Orange Fcuking fab",
         "store": 2,
         "home": 3,
         "expiryDate": "2024-03-01"
       },
       {
-        "flavor": "Raspberry ready lime",
+        "flavor": "Raspberry Peach lime",
         "store": 3,
         "home": 2,
         "expiryDate": "2024-02-10"
       },
       {
-        "flavor": "Banana lofty freeze",
-        "store": "3",
+        "flavor": "Banana Taffy freeze",
+        "store": 2,
         "home": 2,
         "expiryDate": "2023-12-25"
       },
@@ -74,7 +74,7 @@
       },
       {
         "flavor": "Blue Razz ice",
-        "store": "9",
+        "store": 2,
         "home": 2,
         "expiryDate": "2024-01-05"
       },
@@ -97,7 +97,7 @@
         "expiryDate": "2024-01-30"
       },
       {
-        "flavor": "Sour Straus",
+        "flavor": "Sour Straws",
         "store": 2,
         "home": 2,
         "expiryDate": "2024-01-15"
@@ -127,19 +127,19 @@
         "expiryDate": "2024-01-22"
       },
       {
-        "flavor": "Lemon Hands",
-        "store": "14",
+        "flavor": "Lemon Heads",
+        "store": 2,
         "home": 2,
         "expiryDate": "2024-01-08"
       },
       {
         "flavor": "Blue Rancher",
-        "store": "3",
+        "store": 2,
         "home": 4,
         "expiryDate": "2024-02-20"
       },
       {
-        "flavor": "Orange Slush slush",
+        "flavor": "Orange slush",
         "store": 1,
         "home": 0,
         "expiryDate": "2023-11-25"
