@@ -26,7 +26,7 @@
       },
       {
         "flavor": "Blue Rancher",
-        "store": 2,
+        "store": 1,
         "home": 4,
         "expiryDate": "12/01/2026"
       },
@@ -134,7 +134,7 @@
       },
       {
         "flavor": "Strawberry B-pop",
-        "store": 2,
+        "store": 1,
         "home": 1,
         "expiryDate": "11/01/2026"
       },
