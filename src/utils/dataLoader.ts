@@ -1,5 +1,4 @@
 import { ProductCategory } from '../components/types';
-
 // Import your JSON data files
 import gb15k from '../data/gb-15k.json';
 import gb25k from '../data/gb-25k.json';
