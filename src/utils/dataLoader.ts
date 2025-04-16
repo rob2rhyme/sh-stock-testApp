@@ -3,6 +3,7 @@ import { ProductCategory } from '../components/types';
 // Import your JSON data files
 import gb15k from '../data/gb-15k.json';
 import gb25k from '../data/gb-25k.json';
+import lostMary20k from '../data/LostMary-20k.json';
 import cali8k from '../data/cali-8k.json';
 import cali20k from '../data/cali-20k.json';
 import yovo18k from '../data/Yovo-18k.json';
@@ -30,6 +31,7 @@ export const fetchAllData = async (): Promise<Record<string, ProductCategory>> =
   data['GeekBar 25K'] = processFile(gb25k, 'geekbar25k');
   data['Yovo 8K'] = processFile(yovo8k, 'Yovo-8k');
   data['Yovo Ultra 18K'] = processFile(yovo18k, 'Yovo-18k');
+  data['Lost Mary 20K'] = processFile(lostMary20k, 'lostMary20k');
   data['Raz 25k'] = processFile(raz25k, 'raz25k');
   // data['Cali 8K'] = processFile(cali8k, 'cali8k');
   // data['Cali 20K'] = processFile(cali20k, 'cali20k');
