@@ -51,8 +51,21 @@ const TabPanel: React.FC<TabPanelProps> = ({ category, searchTerm, }) => {
                   {isLowStock ? 'Need to Order' : 'GOOD'}
                 </td>
                 <td>{product.expiryDate}</td>
-                <td className={isExpiringSoon ? styles.expiringSoon : styles.goodExpiry}>
+                {/* <td className={isExpiringSoon ? styles.expiringSoon : styles.goodExpiry}>
                   {daysLeft > 0 ? daysLeft : 'Expired'}
+                </td> */}
+                <td className={
+                  product.expiryDate === 'n/a'
+                    ? styles.naExpiry
+                    : isExpiringSoon
+                      ? styles.expiringSoon
+                      : styles.goodExpiry
+                }>
+                  {product.expiryDate === 'n/a'
+                    ? 'No Expiry Date'
+                    : daysLeft > 0
+                      ? daysLeft
+                      : 'Expired'}
                 </td>
               </tr>
             );
