@@ -5,8 +5,8 @@ import gb15k from '../data/gb-15k.json';
 import gb25k from '../data/gb-25k.json';
 import cali8k from '../data/cali-8k.json';
 import cali20k from '../data/cali-20k.json';
-import yovo8k from '../data/yovo-8k.json';
-import yovo20k from '../data/yovo-20k.json';
+import yovo18k from '../data/yovo-18k.json';
+import yovo8k from '../data/Yovo-8k.json';
 import fogerFull from '../data/Foger-full.json';
 import fogerPodOnly from '../data/FogerPodOnly.json';
 import raz30k from '../data/Raz30k.json';
@@ -28,13 +28,13 @@ export const fetchAllData = async (): Promise<Record<string, ProductCategory>> =
 
   data['GeekBar 15K'] = processFile(gb15k, 'geekbar15k');
   data['GeekBar 25K'] = processFile(gb25k, 'geekbar25k');
-  data['Cali 8K'] = processFile(cali8k, 'cali8k');
-  data['Cali 20K'] = processFile(cali20k, 'cali20k');
-  data['Yovo 8K'] = processFile(yovo8k, 'Yovo8k');
-  data['Yovo 20K'] = processFile(yovo20k, 'Yovo20k');
-  data['Foger Full'] = processFile(fogerFull, 'FogerFull');
-  data['Foger Pod Only'] = processFile(fogerPodOnly, 'FogerPodOnly');
-  data['Raz 30K'] = processFile(raz30k, 'Raz30K');
+  data['Yovo 8K'] = processFile(yovo8k, 'Yovo-8k');
+  data['Yovo Ultra 18K'] = processFile(yovo18k, 'Yovo-18k');
+  // data['Cali 8K'] = processFile(cali8k, 'cali8k');
+  // data['Cali 20K'] = processFile(cali20k, 'cali20k');
+  // data['Foger Full'] = processFile(fogerFull, 'FogerFull');
+  // data['Foger Pod Only'] = processFile(fogerPodOnly, 'FogerPodOnly');
+  // data['Raz 30K'] = processFile(raz30k, 'Raz30K');
 
   return data;
 };
