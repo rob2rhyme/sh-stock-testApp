@@ -9,7 +9,7 @@ import yovo18k from '../data/yovo-18k.json';
 import yovo8k from '../data/Yovo-8k.json';
 import fogerFull from '../data/Foger-full.json';
 import fogerPodOnly from '../data/FogerPodOnly.json';
-import Raz25K from '../data/Raz-25K.json';
+import Raz25K from '../data/Raz-25k.json';
 
 export const fetchAllData = async (): Promise<Record<string, ProductCategory>> => {
   const data: Record<string, ProductCategory> = {};
