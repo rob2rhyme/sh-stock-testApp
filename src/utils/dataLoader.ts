@@ -5,7 +5,7 @@ import gb15k from '../data/gb-15k.json';
 import gb25k from '../data/gb-25k.json';
 import cali8k from '../data/cali-8k.json';
 import cali20k from '../data/cali-20k.json';
-import yovo18k from '../data/yovo-18k.json';
+import yovo18k from '../data/Yovo-18k.json';
 import yovo8k from '../data/Yovo-8k.json';
 import fogerFull from '../data/Foger-full.json';
 import fogerPodOnly from '../data/FogerPodOnly.json';
