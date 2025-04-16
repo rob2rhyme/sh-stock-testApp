@@ -9,7 +9,7 @@ import yovo18k from '../data/yovo-18k.json';
 import yovo8k from '../data/Yovo-8k.json';
 import fogerFull from '../data/Foger-full.json';
 import fogerPodOnly from '../data/FogerPodOnly.json';
-import Raz-25K from '../data/Raz-25K.json';
+import raz25K from '../data/Raz-25K.json';
 
 export const fetchAllData = async (): Promise<Record<string, ProductCategory>> => {
   const data: Record<string, ProductCategory> = {};
@@ -30,7 +30,7 @@ export const fetchAllData = async (): Promise<Record<string, ProductCategory>> =
   data['GeekBar 25K'] = processFile(gb25k, 'geekbar25k');
   data['Yovo 8K'] = processFile(yovo8k, 'Yovo-8k');
   data['Yovo Ultra 18K'] = processFile(yovo18k, 'Yovo-18k');
-  data['Raz 25K'] = processFile(Raz-25K, 'Raz-25K');
+  data['Raz 25K'] = processFile(raz25K, 'Raz-25K');
   // data['Cali 8K'] = processFile(cali8k, 'cali8k');
   // data['Cali 20K'] = processFile(cali20k, 'cali20k');
   // data['Foger Full'] = processFile(fogerFull, 'FogerFull');
