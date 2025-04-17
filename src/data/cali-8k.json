@@ -1,22 +1,17 @@
 {
     "cali8k": [
-      {
-        "flavor": "Miami-unit",
-        "store": 2,
-        "home": 6,
-        "expiryDate": "2024-01-15"
-      },
-      {
-        "flavor": "Cool-unit",
+     {
+        "flavor": "Frozen Peach",
         "store": 0,
         "home": 0,
-        "expiryDate": "2023-11-20"
+        "expiryDate": "n/a"
       },
-      {
-        "flavor": "Storm-unit",
-        "store": 3,
-        "home": 2,
-        "expiryDate": "2024-02-10"
+        {
+        "flavor": "Maxican Mint",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
       }
+        
     ]
   }
