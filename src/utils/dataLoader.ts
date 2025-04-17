@@ -12,7 +12,7 @@ import fogerFull from '../data/Foger-full.json';
 import fogerPodOnly from '../data/FogerPodOnly.json';
 import raz25k from '../data/Raz-25k.json';
 import rama16k from '../data/rama-16k.json';
-import viho20k from '../data/viho20k.json';
+import viho20k from '../data/viho-20k.json';
 
 export const fetchAllData = async (): Promise<Record<string, ProductCategory>> => {
   const data: Record<string, ProductCategory> = {};
