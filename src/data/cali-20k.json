@@ -1,22 +1,82 @@
 {
     "cali20k": [
       {
-        "flavor": "Miami-unit",
-        "store": 2,
-        "home": 6,
-        "expiryDate": "2024-01-15"
-      },
-      {
-        "flavor": "Cool-unit",
+        "flavor": "Coconut Banana",
         "store": 0,
         "home": 0,
-        "expiryDate": "2023-11-20"
+        "expiryDate": "n/a"
       },
       {
-        "flavor": "Storm-unit",
-        "store": 3,
-        "home": 2,
-        "expiryDate": "2024-02-10"
+        "flavor": "Frozen Apple Watermelon",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Frozen Black Berry",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Frozen Blue Raspberry",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Frozen Grape",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Frozen Lush",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Frozen Strawberry Raspberry",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "LA Mint",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Mighty Mint",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Spearmint",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Strawberry Banana",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Strawberry Kiwi",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
+      },
+      {
+        "flavor": "Watermelon",
+        "store": 0,
+        "home": 0,
+        "expiryDate": "n/a"
       }
     ]
-  }
+}
