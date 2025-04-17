@@ -2,7 +2,7 @@
   "geekbar15k": [
     {
       "flavor": "Berry Bliss",
-      "store": 2,
+      "store": 1,
       "home": 2,
       "expiryDate": "01/07/2027"
     },
@@ -152,7 +152,7 @@
     },
     {
       "flavor": "Peppermintz",
-      "store": 3,
+      "store": 2,
       "home": 0,
       "expiryDate": "12/16/2026"
     },
