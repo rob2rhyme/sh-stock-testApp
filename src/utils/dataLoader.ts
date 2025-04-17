@@ -34,7 +34,7 @@ export const fetchAllData = async (): Promise<Record<string, ProductCategory>> =
   data['Lost Mary 20K'] = processFile(lostMary20k, 'lostMary20k');
   data['Raz 25k'] = processFile(raz25k, 'raz25k');
   // data['Cali 8K'] = processFile(cali8k, 'cali8k');
-  // data['Cali 20K'] = processFile(cali20k, 'cali20k');
+  data['Cali 20K'] = processFile(cali20k, 'cali20k');
   // data['Foger Full'] = processFile(fogerFull, 'FogerFull');
   // data['Foger Pod Only'] = processFile(fogerPodOnly, 'FogerPodOnly');
 
