@@ -12,6 +12,7 @@ import fogerFull from '../data/Foger-full.json';
 import fogerPodOnly from '../data/FogerPodOnly.json';
 import raz25k from '../data/Raz-25k.json';
 import rama16k from '../data/rama-16k.json';
+import viho20k from '../data/viho20k.json';
 
 export const fetchAllData = async (): Promise<Record<string, ProductCategory>> => {
   const data: Record<string, ProductCategory> = {};
@@ -35,6 +36,7 @@ data['GeekBar 25K'] = processFile(gb25k, 'geekbar25k');
 data['Lost Mary 20K'] = processFile(lostMary20k, 'lostMary20k');
 data['RAMA 16K'] = processFile(rama16k, 'rama16k');
 data['Raz 25k'] = processFile(raz25k, 'raz25k');
+data['VIHO 20K'] = processFile(viho20k, 'viho20k');
 data['Yovo 8K'] = processFile(yovo8k, 'Yovo-8k');
 data['Yovo Ultra 18K'] = processFile(yovo18k, 'Yovo-18k');
   // data['Foger Full'] = processFile(fogerFull, 'FogerFull');
