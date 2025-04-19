@@ -30,17 +30,17 @@ export const fetchAllData = async (): Promise<Record<string, ProductCategory>> =
 
 data['Cali 8K'] = processFile(cali8k, 'cali8k');
 data['Cali 20K'] = processFile(cali20k, 'cali20k');
+data['Foger With Kit 30K'] = processFile(fogerWithKit30k, 'fogerWithKit30k');
 data['GeekBar 15K'] = processFile(gb15k, 'geekbar15k');
 data['GeekBar 25K'] = processFile(gb25k, 'geekbar25k');
 data['Lost Mary 20K'] = processFile(lostMary20k, 'lostMary20k');
 data['North Vision 15K'] = processFile(northVision15k, 'northVision-15k');
+data['Pillow Talk 40K'] = processFile(pillowTalk40k, 'pillowTalk40k');
 data['RAMA 16K'] = processFile(rama16k, 'rama16k');
 data['Raz 25k'] = processFile(raz25k, 'raz25k');
 data['VIHO 20K'] = processFile(viho20k, 'viho20k');
 data['Yovo 8K'] = processFile(yovo8k, 'Yovo-8k');
 data['Yovo Ultra 18K'] = processFile(yovo18k, 'Yovo-18k');
-data['Pillow Talk 40K'] = processFile(pillowTalk40k, 'pillowTalk40k');
-data['Foger With Kit 30K'] = processFile(fogerWithKit30k, 'fogerWithKit30k');
 
   return data;
 };
