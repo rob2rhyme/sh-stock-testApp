@@ -6,7 +6,6 @@ import cali8k from '../data/cali-8k.json';
 import cali20k from '../data/cali-20k.json';
 import yovo18k from '../data/Yovo-18k.json';
 import yovo8k from '../data/Yovo-8k.json';
-import fogerPodOnly from '../data/FogerPodOnly.json';
 import raz25k from '../data/Raz-25k.json';
 import rama16k from '../data/rama-16k.json';
 import viho20k from '../data/viho-20k.json';
