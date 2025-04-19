@@ -20,7 +20,7 @@
       },
       {
         "flavor": "Blackberry Blueberry",
-        "store": 1,
+        "store": 0,
         "home": 1,
         "expiryDate": "12/01/2026"
       },
@@ -56,7 +56,7 @@
       },
       {
         "flavor": "Lemon Heads",
-        "store": 2,
+        "store": 1,
         "home": 2,
         "expiryDate": "01/15/2027"
       },
