@@ -44,7 +44,7 @@ data['VIHO 20K'] = processFile(viho20k, 'viho20k');
 data['Yovo 8K'] = processFile(yovo8k, 'Yovo-8k');
 data['Yovo Ultra 18K'] = processFile(yovo18k, 'Yovo-18k');
 data['Pillow Talk 40K'] = processFile(pillowTalk40k, 'pillowTalk40k');
-data['Foger/Kit 30K'] = processFile(fogerWithKit30k, 'fogerWithKit30k');
+data['Foger With Kit 30K'] = processFile(fogerWithKit30k, 'FogerWithKit30k');
   // data['Foger Full'] = processFile(fogerFull, 'FogerFull');
   // data['Foger Pod Only'] = processFile(fogerPodOnly, 'FogerPodOnly');
 
