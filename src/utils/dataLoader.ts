@@ -12,6 +12,7 @@ import viho20k from '../data/viho-20k.json';
 import northVision15k from '../data/northVision-15k.json';
 import pillowTalk40k from '../data/PillowTalk-40k.json';
 import fogerWithKit30k from '../data/FogerWithKit-30k.json';
+import fogerPod30k from '../data/FogerPod-30k.json';
 
 export const fetchAllData = async (): Promise<Record<string, ProductCategory>> => {
   const data: Record<string, ProductCategory> = {};
@@ -30,6 +31,7 @@ export const fetchAllData = async (): Promise<Record<string, ProductCategory>> =
 
 data['Cali 8K'] = processFile(cali8k, 'cali8k');
 data['Cali 20K'] = processFile(cali20k, 'cali20k');
+data['Foger Pod 30K'] = processFile(fogerPod30k, 'fogerPod30k');
 data['Foger With Kit 30K'] = processFile(fogerWithKit30k, 'fogerWithKit30k');
 data['GeekBar 15K'] = processFile(gb15k, 'geekbar15k');
 data['GeekBar 25K'] = processFile(gb25k, 'geekbar25k');
