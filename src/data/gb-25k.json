@@ -8,7 +8,7 @@
       },
       {
         "flavor": "Banana Taffy freeze",
-        "store": 2,
+        "store": 1,
         "home": 2,
         "expiryDate": "12/01/2026"
       },
@@ -38,10 +38,16 @@
       },
       {
         "flavor": "Cool Mint",
-        "store": 1,
+        "store": 0,
         "home": 2,
         "expiryDate": "11/01/2026"
       },
+         {
+      "flavor": "Cola Slush",
+      "store": 0,
+      "home": 0,
+      "expiryDate": "12/16/2026"
+    },
       {
         "flavor": "Grape slush",
         "store": 0,
