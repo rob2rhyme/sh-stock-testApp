@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ProductCategory } from '../../components/types';
+import { ProductCategory } from '../../types';
 
 export default async function handler(
   req: NextApiRequest,

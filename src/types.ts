@@ -1,4 +1,5 @@
 export interface Product {
+    category: string;
     flavor: string;
     store: number;
     home: number;

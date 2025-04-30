@@ -1,4 +1,4 @@
-import { ProductCategory } from '../components/types';
+import { ProductCategory } from '../types';
 import gb15k from '../data/gb-15k.json';
 import gb25k from '../data/gb-25k.json';
 import lostMary20k from '../data/LostMary-20k.json';

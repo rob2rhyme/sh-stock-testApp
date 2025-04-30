@@ -1,176 +1,168 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import TabPanel from '../components/TabPanel';
-import Footer from '../components/Footer';
-import { fetchAllData } from '../utils/dataLoader';
-import { ProductCategory, Product } from '../components/types';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
+import Layout from '@/components/Layout';
+import TabPanel from '@/components/TabPanel';
+import { Product } from '@/types';
 
-export default function Home() {
-  const [productData, setProductData] = useState<Record<string, ProductCategory>>({});
-  const [activeTab, setActiveTab] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
-  const [saveStatus, setSaveStatus] = useState<string>('');
-  const [history, setHistory] = useState<Array<Record<string, ProductCategory>>>([]);
-  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+const Home = () => {
+  const [productsByCategory, setProductsByCategory] = useState<Record<string, Product[]>>({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeTab, setActiveTab] = useState('');
+  const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await fetchAllData();
-        setProductData(data);
-        setHistory([data]);
-        setHistoryIndex(0);
-        
-        const categories = Object.keys(data);
-        if (categories.length > 0) {
-          setActiveTab(categories[0]);
-        }
-      } catch (error) {
-        console.error('Error loading data:', error);
-      } finally {
-        setLoading(false);
-      }
+    const fetchData = async () => {
+      const snapshot = await getDocs(collection(db, 'products'));
+      const products = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          category: data.category || 'Uncategorized',
+          flavor: data.flavor || '',
+          store: data.store || '',
+          home: data.home || '',
+          expiryDate: data.expiryDate || null,
+        } as Product;
+      });
+
+      const grouped: Record<string, Product[]> = {};
+      products.forEach(product => {
+        const cat = product.category || 'Uncategorized';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(product);
+      });
+
+      setProductsByCategory(grouped);
+      setActiveTab(Object.keys(grouped)[0] || '');
     };
 
-    loadData();
+    fetchData();
   }, []);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
-  const clearSearch = () => {
+  const handleClear = () => {
     setSearchTerm('');
+    setFilter('All');
   };
 
-  const saveChanges = async () => {
-    try {
-      const response = await fetch('/api/saveData', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productData),
-      });
-      
-      if (response.ok) {
-        addToHistory(productData);
-        setSaveStatus('Changes saved!');
-        setTimeout(() => setSaveStatus(''), 3000);
-      }
-    } catch (error) {
-      console.error('Error saving data:', error);
-      setSaveStatus('Error saving changes');
-      setTimeout(() => setSaveStatus(''), 3000);
-    }
-  };
-
-  const addToHistory = useCallback((newData: Record<string, ProductCategory>) => {
-    const newHistory = history.slice(0, historyIndex + 1);
-    newHistory.push(JSON.parse(JSON.stringify(newData)));
-    setHistory(newHistory);
-    setHistoryIndex(newHistory.length - 1);
-  }, [history, historyIndex]);
-
-  const undo = useCallback(() => {
-    if (historyIndex > 0) {
-      setProductData(history[historyIndex - 1]);
-      setHistoryIndex(historyIndex - 1);
-    }
-  }, [history, historyIndex]);
-
-  const redo = useCallback(() => {
-    if (historyIndex < history.length - 1) {
-      setProductData(history[historyIndex + 1]);
-      setHistoryIndex(historyIndex + 1);
-    }
-  }, [history, historyIndex]);
-
-  // const updateProductData = useCallback((category: string, updatedProducts: Product[]) => {
-  //   const newData = {
-  //     ...productData,
-  //     [category]: {
-  //       ...productData[category],
-  //       products: updatedProducts
-  //     }
-  //   };
-  //   setProductData(newData);
-  //   addToHistory(newData);
-  // }, [productData, addToHistory]);
-
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
+  // const categories = Object.keys(productsByCategory);
+  const categories = Object.keys(productsByCategory).sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: 'base' })
+  );
+  
 
   return (
-    <div className="container">
+    <Layout>
       <Head>
         <title>Smokers Haven Inventory</title>
-        <meta name="description" content="Inventory management for Smokers Haven" />
-        <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/mymediastorage-e5bb2.appspot.com/o/sh-logo%20only-cropped.png?alt=media&token=ee5e54a8-e160-4c6e-9d93-591f7d0bc875" />
       </Head>
-
-      <header className="header">
-        <div className="logo-container">
-          <img 
-            src="https://firebasestorage.googleapis.com/v0/b/mymediastorage-e5bb2.appspot.com/o/sh-logo%20only-cropped.png?alt=media&token=ee5e54a8-e160-4c6e-9d93-591f7d0bc875" 
-            alt="Smokers Haven Logo" 
-            className="logo"
-          />
-          <h1 className="title">Smokers Haven Inventory Tracker</h1>
-        </div>
-        
-        {/* <div className="actions">
-          <button onClick={undo} disabled={historyIndex <= 0} className="button">
-            Undo
-          </button>
-          <button onClick={redo} disabled={historyIndex >= history.length - 1} className="button">
-            Redo
-          </button>
-          <button onClick={saveChanges} className="button save-button">
-            Save
-          </button>
-          {saveStatus && <span className="save-status">{saveStatus}</span>}
-        </div> */}
-      </header>
-
-      <div className="search-container">
-        <form onSubmit={handleSearch} className="search-form">
-          <input
-            type="text"
-            placeholder="Search flavors..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-          <button type="button" onClick={clearSearch} className="clear-button">
-            Clear
-          </button>
-        </form>
-      </div>
-
-      <div className="tabs">
-        {Object.keys(productData).map((category) => (
-          <button
-            key={category}
-            className={`tab ${activeTab === category ? 'active-tab' : ''}`}
-            onClick={() => setActiveTab(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-
-      {activeTab && productData[activeTab] && (
-        <TabPanel
-          category={productData[activeTab]}
-          searchTerm={searchTerm}
-          // updateProductData={updateProductData}
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'nowrap', overflowX: 'auto', alignItems: 'center' }}>
+        <input
+          type="text"
+          placeholder="Search flavor..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{
+            flexGrow: 1,
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            minWidth: '180px',
+          }}
         />
-      )}
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          style={{
+            padding: '0.5rem 1rem',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+            cursor: 'pointer',
+            minWidth: '140px',
+            flexShrink: 0,
+          }}
+        >
+          <option>All</option>
+          <option>Need to Order</option>
+          <option>Good</option>
+          <option>Expiry n/a</option>
+          <option>Expiring Soon</option>
+        </select>
+        <button
+          onClick={handleClear}
+          style={{
+            padding: '0.5rem 1rem',
+            background: 'red',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            flexShrink: 0,
+          }}
+        >
+          Clear
+        </button>
+      </div>
 
-      <Footer />
-    </div>
-  );
+      <div className="tabs-container">
+        <div className="tabs-scroll">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveTab(cat)}
+              className={activeTab === cat ? 'active-tab' : ''}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="tab-content">
+        {activeTab && productsByCategory[activeTab] && (
+          <TabPanel
+            products={productsByCategory[activeTab]}
+            searchTerm={searchTerm}
+            filter={filter}
+          />
+        )}
+      </div>
+
+      <style jsx>{`
+        .tabs-container {
+          overflow-x: auto;
+          margin-bottom: 1rem;
+        }
+
+        .tabs-scroll {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 0.5rem;
+        }
+
+        .tabs-scroll button {
+          white-space: nowrap;
+          padding: 0.5rem 1rem;
+          background-color: #eee;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: 500;
+        }
+
+        .tabs-scroll button.active-tab {
+  background-color: #3182ce;
+  color: white;
 }
+
+
+        .tab-content {
+          margin-top: 1rem;
+        }
+      `}</style>
+    </Layout>
+  );
+};
+
+export default Home;

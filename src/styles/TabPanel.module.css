@@ -1,5 +1,4 @@
 .tabPanel {
-  flex-grow: 1;
   padding: 0 1rem 0.5rem 1rem;
   overflow-x: auto;
 }
@@ -7,7 +6,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  margin-top: auto;
   font-family: 'Courier New', Courier, monospace;
 }
 
@@ -31,34 +30,14 @@
   background-color: #ebf8ff;
 }
 
-.lowStock {
-  color: #e53e3e;
-  font-weight: bold;
-}
-
-.goodStock {
-  color: #38a169;
-  font-weight: bold;
-}
-
+.lowStock,
 .expiringSoon {
   color: #e53e3e;
   font-weight: bold;
 }
 
+.goodStock,
 .goodExpiry {
   color: #38a169;
+  font-weight: bold;
 }
-
-/* .removeButton {
-  padding: 0.25rem 0.5rem;
-  background-color: #e53e3e;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.removeButton:hover {
-  background-color: #c53030;
-} */

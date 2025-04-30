@@ -1,0 +1,24 @@
+.header {
+    background-color: #1a3e72;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 2px solid #444;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    border-radius: 4px;
+  }
+  
+  .title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
