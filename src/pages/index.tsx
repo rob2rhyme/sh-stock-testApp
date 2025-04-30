@@ -50,39 +50,47 @@ const Home = () => {
   const categories = Object.keys(productsByCategory).sort((a, b) =>
     a.localeCompare(b, undefined, { sensitivity: 'base' })
   );
-  
+
 
   return (
     <Layout>
       <Head>
         <title>Smokers Haven Inventory</title>
       </Head>
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'nowrap', overflowX: 'auto', alignItems: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
+          marginBottom: '1rem',
+          justifyContent: 'space-between'
+        }}
+      >
         <input
           type="text"
-          placeholder="Search flavor..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search flavor..."
           style={{
-            flexGrow: 1,
+            flex: '1 1 200px',
+            minWidth: '0',
             padding: '0.5rem',
             border: '1px solid #ccc',
-            borderRadius: '5px',
-            minWidth: '180px',
+            borderRadius: '5px'
           }}
         />
+
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           style={{
-            padding: '0.5rem 1rem',
-            borderRadius: '5px',
+            flex: '0 1 150px',
+            padding: '0.5rem',
             border: '1px solid #ccc',
-            cursor: 'pointer',
-            minWidth: '140px',
-            flexShrink: 0,
+            borderRadius: '5px'
           }}
         >
+
           <option>All</option>
           <option>Need to Order</option>
           <option>Good</option>
@@ -92,17 +100,18 @@ const Home = () => {
         <button
           onClick={handleClear}
           style={{
-            padding: '0.5rem 1rem',
+            flex: '0 1 100px',
+            padding: '0.5rem',
             background: 'red',
             color: 'white',
             border: 'none',
             borderRadius: '5px',
-            cursor: 'pointer',
-            flexShrink: 0,
+            cursor: 'pointer'
           }}
         >
           Clear
         </button>
+
       </div>
 
       <div className="tabs-container">
