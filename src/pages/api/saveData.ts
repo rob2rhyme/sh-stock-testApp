@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ProductCategory } from '../../types';
+// import { ProductCategory } from '../../types';
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const data: Record<string, ProductCategory> = req.body;
+      const data = req.body;
       
       // In a real application, you would save the data to a database here
       // For this example, we'll just log it and return success

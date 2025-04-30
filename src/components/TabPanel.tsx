@@ -2,6 +2,8 @@ import React from 'react';
 import styles from '../styles/TabPanel.module.css';
 import { Product } from '@/types';
 
+export type Status = 'Good' | 'Expiring Soon' | 'Need to Order';
+
 interface TabPanelProps {
   products: Product[];
   searchTerm: string;
@@ -16,30 +18,22 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
+  const getStatus = (product: Product): Status => {
+    const total = (Number(product.store) || 0) + (Number(product.home) || 0);
+    const isLowStock = total <= 1;
+    const hasExpiry = product.expiryDate !== 'n/a';
+    const isExpiringSoon = hasExpiry && calculateDaysLeft(product.expiryDate) <= 30;
+
+    if (isLowStock) return 'Need to Order';
+    if (hasExpiry && isExpiringSoon) return 'Expiring Soon';
+    return 'Good';
+  };
+
   const filteredProducts = products.filter((product) => {
     const flavorMatch = product.flavor.toLowerCase().includes(searchTerm.toLowerCase());
+    const status = getStatus(product);
 
-    const total = (Number(product.store) || 0) + (Number(product.home) || 0);
-    const hasExpiry = product.expiryDate !== 'n/a';
-    const daysLeft = hasExpiry ? calculateDaysLeft(product.expiryDate) : null;
-
-    const isLowStock = total <= 1;
-    const isExpiringSoon = hasExpiry && daysLeft! <= 30;
-
-    const status =
-      !hasExpiry
-        ? 'Expiry n/a'
-        : isLowStock
-          ? 'Need to Order'
-          : isExpiringSoon
-            ? 'Expiring Soon'
-            : 'Good';
-
-    if (filter === 'Expiry n/a' && hasExpiry) return false;
-    if (filter === 'Expiring Soon' && !isExpiringSoon) return false;
-    if (filter === 'Need to Order' && !isLowStock) return false;
-    if (filter === 'Good' && (isLowStock || !hasExpiry || isExpiringSoon)) return false;
-
+    if (filter !== 'All' && filter !== status) return false;
     return flavorMatch;
   });
 
@@ -62,19 +56,7 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
             const total = (Number(product.store) || 0) + (Number(product.home) || 0);
             const hasExpiry = product.expiryDate !== 'n/a';
             const daysLeft = hasExpiry ? calculateDaysLeft(product.expiryDate) : null;
-            const isLowStock = total <= 1;
-            const isExpiringSoon = hasExpiry && daysLeft! <= 30;
-
-            const status =
-              product.expiryDate === 'n/a'
-                ? isLowStock
-                  ? 'Need to Order'
-                  : 'Good'
-                : isLowStock
-                  ? 'Need to Order'
-                  : isExpiringSoon
-                    ? 'Expiring Soon'
-                    : 'Good';
+            const status = getStatus(product);
 
             return (
               <tr key={`${product.flavor}-${index}`}>
@@ -84,12 +66,11 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
                 <td>{total}</td>
                 <td
                   className={
-                    status === 'Expiring Soon'
+                    status === 'Need to Order'
+                      ? styles.lowStock
+                      : status === 'Expiring Soon'
                       ? styles.expiringSoon
-                      : status === 'Need to Order'
-                        ? styles.lowStock
-                        : styles.goodStock
-
+                      : styles.goodStock
                   }
                 >
                   {status}
@@ -99,16 +80,16 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
                   className={
                     !hasExpiry
                       ? styles.naExpiry
-                      : isExpiringSoon
-                        ? styles.expiringSoon
-                        : styles.goodExpiry
+                      : daysLeft! <= 30
+                      ? styles.expiringSoon
+                      : styles.goodExpiry
                   }
                 >
                   {!hasExpiry
                     ? 'No Expiry Date'
                     : daysLeft! > 0
-                      ? daysLeft
-                      : 'Expired'}
+                    ? daysLeft
+                    : 'Expired'}
                 </td>
               </tr>
             );
