@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/TabPanel.module.css';
 import { Product } from '@/types';
 
-export type Status = 'Good' | 'Expiring Soon' | 'Need to Order';
+type Status = 'Good' | 'Expiring Soon' | 'Need to Order';
 
 interface TabPanelProps {
   products: Product[];
@@ -25,16 +25,14 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
     const isExpiringSoon = hasExpiry && calculateDaysLeft(product.expiryDate) <= 30;
 
     if (isLowStock) return 'Need to Order';
-    if (hasExpiry && isExpiringSoon) return 'Expiring Soon';
+    if (isExpiringSoon) return 'Expiring Soon';
     return 'Good';
   };
 
   const filteredProducts = products.filter((product) => {
     const flavorMatch = product.flavor.toLowerCase().includes(searchTerm.toLowerCase());
     const status = getStatus(product);
-
-    if (filter !== 'All' && filter !== status) return false;
-    return flavorMatch;
+    return flavorMatch && (filter === 'All' || filter === status);
   });
 
   return (
