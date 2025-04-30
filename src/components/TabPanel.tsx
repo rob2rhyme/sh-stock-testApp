@@ -30,10 +30,10 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
       !hasExpiry
         ? 'Expiry n/a'
         : isLowStock
-        ? 'Need to Order'
-        : isExpiringSoon
-        ? 'Expiring Soon'
-        : 'Good';
+          ? 'Need to Order'
+          : isExpiringSoon
+            ? 'Expiring Soon'
+            : 'Good';
 
     if (filter === 'Expiry n/a' && hasExpiry) return false;
     if (filter === 'Expiring Soon' && !isExpiringSoon) return false;
@@ -66,15 +66,15 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
             const isExpiringSoon = hasExpiry && daysLeft! <= 30;
 
             const status =
-  product.expiryDate === 'n/a'
-    ? isLowStock
-      ? 'Need to Order'
-      : 'Good'
-    : isLowStock
-    ? 'Need to Order'
-    : isExpiringSoon
-    ? 'Expiring Soon'
-    : 'Good';
+              product.expiryDate === 'n/a'
+                ? isLowStock
+                  ? 'Need to Order'
+                  : 'Good'
+                : isLowStock
+                  ? 'Need to Order'
+                  : isExpiringSoon
+                    ? 'Expiring Soon'
+                    : 'Good';
 
             return (
               <tr key={`${product.flavor}-${index}`}>
@@ -84,13 +84,12 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
                 <td>{total}</td>
                 <td
                   className={
-                    status === 'Need to Order'
-                      ? styles.lowStock
-                      : status === 'Expiring Soon'
+                    status === 'Expiring Soon'
                       ? styles.expiringSoon
-                      : status === 'Expiry n/a'
-                      ? styles.naExpiry
-                      : styles.goodStock
+                      : status === 'Need to Order'
+                        ? styles.lowStock
+                        : styles.goodStock
+
                   }
                 >
                   {status}
@@ -101,15 +100,15 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filter }) => 
                     !hasExpiry
                       ? styles.naExpiry
                       : isExpiringSoon
-                      ? styles.expiringSoon
-                      : styles.goodExpiry
+                        ? styles.expiringSoon
+                        : styles.goodExpiry
                   }
                 >
                   {!hasExpiry
                     ? 'No Expiry Date'
                     : daysLeft! > 0
-                    ? daysLeft
-                    : 'Expired'}
+                      ? daysLeft
+                      : 'Expired'}
                 </td>
               </tr>
             );
