@@ -134,6 +134,8 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filterOption 
                       editingCell.field === field ? (
                         <input
                           autoFocus
+                          inputMode="numeric"
+                          pattern="[0-9]*"
                           type="number"
                           value={tempValue}
                           onChange={(e) => setTempValue(e.target.value)}

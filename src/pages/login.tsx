@@ -38,6 +38,8 @@ export default function Login() {
           <img src="/logo.png" alt="Logo" className="logo" />
           <h2>Enter 6-digit PIN</h2>
           <input
+            inputMode="numeric" // ✅ triggers number keypad
+            pattern="[0-9]*"
             type="password"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
