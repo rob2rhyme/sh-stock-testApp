@@ -1,4 +1,6 @@
+//src/types.ts
 export interface Product {
+  id: string; // ✅ required for updates
   flavor: string;
   store: number;
   home: number;

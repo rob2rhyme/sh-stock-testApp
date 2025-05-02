@@ -41,3 +41,20 @@
   color: #38a169;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .table tbody tr {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .table td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .tabPanel {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

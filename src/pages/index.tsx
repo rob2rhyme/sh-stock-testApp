@@ -1,56 +1,48 @@
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@/utils/firebase';
-import Layout from '@/components/Layout';
-import TabPanel from '@/components/TabPanel';
-import { Product } from '@/types';
+//src/pages/index.tsx
+import { useEffect, useState } from "react";
+import Head from "next/head";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/utils/firebase";
+import Layout from "@/components/Layout";
+import TabPanel from "@/components/TabPanel";
+import { Product } from "@/types";
+import { loadProducts } from "@/utils/loadProducts";
 
 const Home = () => {
-  const [productsByCategory, setProductsByCategory] = useState<Record<string, Product[]>>({});
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeTab, setActiveTab] = useState('');
-  const [filter, setFilter] = useState('All');
+  const [productsByCategory, setProductsByCategory] = useState<
+    Record<string, Product[]>
+  >({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("");
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     const fetchData = async () => {
-      const snapshot = await getDocs(collection(db, 'products'));
-      const products = snapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          category: data.category || 'Uncategorized',
-          flavor: data.flavor || '',
-          store: data.store || '',
-          home: data.home || '',
-          expiryDate: data.expiryDate || null,
-        } as Product;
-      });
+      const products = await loadProducts();
 
       const grouped: Record<string, Product[]> = {};
-      products.forEach(product => {
-        const cat = product.category || 'Uncategorized';
+      products.forEach((product) => {
+        const cat = product.category || "Uncategorized";
         if (!grouped[cat]) grouped[cat] = [];
         grouped[cat].push(product);
       });
 
       setProductsByCategory(grouped);
-      setActiveTab(Object.keys(grouped)[0] || '');
+      setActiveTab(Object.keys(grouped)[0] || "");
     };
 
     fetchData();
   }, []);
 
   const handleClear = () => {
-    setSearchTerm('');
-    setFilter('All');
+    setSearchTerm("");
+    setFilter("All");
   };
 
   // const categories = Object.keys(productsByCategory);
   const categories = Object.keys(productsByCategory).sort((a, b) =>
-    a.localeCompare(b, undefined, { sensitivity: 'base' })
+    a.localeCompare(b, undefined, { sensitivity: "base" })
   );
-
 
   return (
     <Layout>
@@ -59,11 +51,11 @@ const Home = () => {
       </Head>
       <div
         style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '0.5rem',
-          marginBottom: '1rem',
-          justifyContent: 'space-between'
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "0.5rem",
+          marginBottom: "1rem",
+          justifyContent: "space-between",
         }}
       >
         <input
@@ -72,11 +64,11 @@ const Home = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search flavor..."
           style={{
-            flex: '1 1 200px',
-            minWidth: '0',
-            padding: '0.5rem',
-            border: '1px solid #ccc',
-            borderRadius: '5px'
+            flex: "1 1 200px",
+            minWidth: "0",
+            padding: "0.5rem",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
           }}
         />
 
@@ -84,13 +76,12 @@ const Home = () => {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           style={{
-            flex: '0 1 150px',
-            padding: '0.5rem',
-            border: '1px solid #ccc',
-            borderRadius: '5px'
+            flex: "0 1 150px",
+            padding: "0.5rem",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
           }}
         >
-
           <option>All</option>
           <option>Need to Order</option>
           <option>Good</option>
@@ -100,18 +91,17 @@ const Home = () => {
         <button
           onClick={handleClear}
           style={{
-            flex: '0 1 100px',
-            padding: '0.5rem',
-            background: 'red',
-            color: 'white',
-            border: 'none',
-            borderRadius: '25px',
-            cursor: 'pointer'
+            flex: "0 1 100px",
+            padding: "0.5rem",
+            background: "red",
+            color: "white",
+            border: "none",
+            borderRadius: "25px",
+            cursor: "pointer",
           }}
         >
           Clear
         </button>
-
       </div>
 
       <div className="tabs-container">
@@ -120,7 +110,7 @@ const Home = () => {
             <button
               key={cat}
               onClick={() => setActiveTab(cat)}
-              className={activeTab === cat ? 'active-tab' : ''}
+              className={activeTab === cat ? "active-tab" : ""}
             >
               {cat}
             </button>
@@ -133,7 +123,7 @@ const Home = () => {
           <TabPanel
             products={productsByCategory[activeTab]}
             searchTerm={searchTerm}
-            filter={filter}
+            filterOption={filter}
           />
         )}
       </div>
@@ -141,7 +131,7 @@ const Home = () => {
       <style jsx>{`
         .tabs-container {
           overflow-x: auto;
-          margin-bottom: 1rem;
+          margin-bottom: 0.25rem; /* reduced spacing */
         }
 
         .tabs-scroll {
@@ -153,21 +143,35 @@ const Home = () => {
         .tabs-scroll button {
           white-space: nowrap;
           padding: 0.5rem 1rem;
-          background-color: #eee;
+          background-color: #ccc; /* ⬅️ slightly darker */
           border: none;
           border-radius: 5px;
           cursor: pointer;
           font-weight: 500;
+          transition: background-color 0.2s ease;
+        }
+
+        .tabs-scroll button:hover {
+          background-color: #bbb; /* optional hover effect */
         }
 
         .tabs-scroll button.active-tab {
-  background-color: #3182ce;
-  color: white;
-}
-
+          background-color: #3182ce;
+          color: white;
+        }
 
         .tab-content {
-          margin-top: 1rem;
+          margin-top: 0.25rem; /* reduced space between tabs and table */
+        }
+
+        @media (max-width: 768px) {
+          .tabs-container {
+            margin-bottom: 0.1rem;
+          }
+
+          .tab-content {
+            margin-top: 0.1rem;
+          }
         }
       `}</style>
     </Layout>

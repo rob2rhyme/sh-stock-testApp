@@ -1,3 +1,4 @@
+//scripts/import-to-firestore.js
 const admin = require('firebase-admin');
 const fs = require('fs');
 const path = require('path');
