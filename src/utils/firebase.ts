@@ -1,15 +1,24 @@
-// src/utils/firebase.ts
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+// src/firebase.ts
+
+import { initializeApp, getApps, getApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCcWVxdDe3BJPaTzBRCZdfraiTF_2p-L38",
-  authDomain: "smokers-haven-inventory.firebaseapp.com",
-  projectId: "smokers-haven-inventory",
-  storageBucket: "smokers-haven-inventory.firebasestorage.app",
-  messagingSenderId: "93729219083",
-  appId: "1:93729219083:web:d41d5d6758ca1a32dcdd0e",
-};
+  apiKey:            process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain:        process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId:         process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket:     process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId:             process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId:     process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID, // optional
+}
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+// Initialize Firebase app (avoiding re-initialization on HMR)
+const app = !getApps().length
+  ? initializeApp(firebaseConfig)
+  : getApp()
+
+// Export the auth and Firestore instances for use elsewhere
+export const auth = getAuth(app)
+export const db   = getFirestore(app)
