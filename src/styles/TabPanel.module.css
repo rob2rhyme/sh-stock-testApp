@@ -58,3 +58,109 @@
     padding: 0 !important;
   }
 }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal input {
+  width: 100%;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.modalButtons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.modalButtons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modalButtons button:first-child {
+  background: #3182ce;
+  color: white;
+}
+
+.modalButtons button:last-child {
+  background: #ccc;
+  color: black;
+}
+
+.quantityCell {
+  background-color: #edf2f7; /* light gray-blue */
+  border: 1px solid #cbd5e0; /* slightly darker border */
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  text-align: center;
+  font-weight: 500;
+  color: #2d3748;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.quantityCell:hover {
+  background-color: #e2e8f0; /* slightly darker on hover */
+}
+
+
+.storeCell {
+  background-color: #ffffff;
+  border: 1px solid #dde411;
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  color: #2c7a7b;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.storeCell:hover {
+  background-color: #b2f5ea;
+}
+
+.homeCell {
+  background-color: #ffffff;
+  border: 1px solid #ca0ce7;
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  color: #2b6cb0;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.homeCell:hover {
+  background-color: #bee3f8;
+}

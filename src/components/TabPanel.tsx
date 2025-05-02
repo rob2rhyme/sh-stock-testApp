@@ -13,12 +13,16 @@ interface TabPanelProps {
   filterOption: string;
 }
 
-const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filterOption }) => {
-  const [editingCell, setEditingCell] = useState<{
-    row: number;
-    field: "store" | "home";
-  } | null>(null);
-  const [tempValue, setTempValue] = useState("");
+const TabPanel: React.FC<TabPanelProps> = ({
+  products,
+  searchTerm,
+  filterOption,
+}) => {
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingField, setEditingField] = useState<"store" | "home" | null>(
+    null
+  );
+  const [modalValue, setModalValue] = useState("");
   const { isAuthenticated } = useAuth();
   const router = useRouter();
 
@@ -30,7 +34,9 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filterOption 
   };
 
   const filteredProducts = products.filter((product) => {
-    const flavorMatch = product.flavor?.toLowerCase().includes(searchTerm.toLowerCase());
+    const flavorMatch = product.flavor
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
     const total = Number(product.store || 0) + Number(product.home || 0);
     const daysLeft = calculateDaysLeft(product.expiryDate || "");
 
@@ -53,42 +59,43 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filterOption 
     }
   });
 
-  const handleCellClick = (
-    row: number,
-    field: "store" | "home",
-    value: string
-  ) => {
+  const handleCellClick = (field: "store" | "home", product: Product) => {
     if (!isAuthenticated) {
       router.push(`/login?next=${router.pathname}`);
       return;
     }
-    setEditingCell({ row, field });
-    setTempValue(value);
+    setEditingProduct(product);
+    setEditingField(field);
+    setModalValue(String(product[field] ?? "0"));
   };
 
-  const handleBlur = async (
-    index: number,
-    field: "store" | "home",
-    product: Product
-  ) => {
-    if (confirm("Are you sure you want to update this quantity?")) {
-      try {
-        const ref = doc(db, "products", product.id);
-        await toast.promise(updateDoc(ref, { [field]: Number(tempValue) }), {
-          loading: "Updating quantity...",
-          success: "Quantity updated successfully!",
-          error: "Failed to update quantity.",
-        });
-  
-        // ✅ Update local product value so UI reflects it immediately
-        product[field] = Number(tempValue);
-      } catch (error) {
-        console.error("Failed to update quantity:", error);
-      }
+  const handleSave = async () => {
+    if (!editingProduct || !editingField) return;
+
+    try {
+      const ref = doc(db, "products", editingProduct.id);
+      await toast.promise(
+        updateDoc(ref, { [editingField]: Number(modalValue) }),
+        {
+          loading: "Saving...",
+          success: "Quantity updated!",
+          error: "Save failed.",
+        }
+      );
+      editingProduct[editingField] = Number(modalValue);
+      setEditingProduct(null);
+      setEditingField(null);
+      setModalValue("");
+    } catch (error) {
+      console.error("Save failed:", error);
     }
-    setEditingCell(null);
   };
-  
+
+  const handleCancel = () => {
+    setEditingProduct(null);
+    setEditingField(null);
+    setModalValue("");
+  };
 
   return (
     <div className={styles.tabPanel}>
@@ -123,33 +130,16 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filterOption 
                     <td
                       key={field}
                       onClick={() =>
-                        handleCellClick(
-                          rowIdx,
-                          field as "store" | "home",
-                          String(value)
-                        )
+                        handleCellClick(field as "store" | "home", product)
                       }
                     >
-                      {editingCell?.row === rowIdx &&
-                      editingCell.field === field ? (
-                        <input
-                          autoFocus
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          type="number"
-                          value={tempValue}
-                          onChange={(e) => setTempValue(e.target.value)}
-                          onBlur={() =>
-                            handleBlur(
-                              rowIdx,
-                              field as "store" | "home",
-                              product
-                            )
-                          }
-                        />
-                      ) : (
-                        String(value)
-                      )}
+                      <span
+                        className={
+                          field === "store" ? styles.storeCell : styles.homeCell
+                        }
+                      >
+                        {String(value)}
+                      </span>
                     </td>
                   );
                 })}
@@ -179,6 +169,26 @@ const TabPanel: React.FC<TabPanelProps> = ({ products, searchTerm, filterOption 
           })}
         </tbody>
       </table>
+
+      {editingProduct && editingField && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <h3>Edit {editingField.toUpperCase()} Quantity</h3>
+            <input
+              type="number"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={modalValue}
+              onChange={(e) => setModalValue(e.target.value)}
+              autoFocus
+            />
+            <div className={styles.modalButtons}>
+              <button onClick={handleSave}>Save</button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
