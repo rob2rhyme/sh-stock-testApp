@@ -105,7 +105,7 @@ const Home = () => {
             background: 'red',
             color: 'white',
             border: 'none',
-            borderRadius: '5px',
+            borderRadius: '25px',
             cursor: 'pointer'
           }}
         >
