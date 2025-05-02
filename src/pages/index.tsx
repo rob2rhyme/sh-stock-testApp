@@ -1,20 +1,30 @@
 //src/pages/index.tsx
-import { useEffect, useState } from "react";
-import Head from "next/head";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/utils/firebase";
-import Layout from "@/components/Layout";
-import TabPanel from "@/components/TabPanel";
-import { Product } from "@/types";
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import { loadProducts } from "@/utils/loadProducts";
+import Layout from '@/components/Layout';
+import TabPanel from '@/components/TabPanel';
+import { Product } from '@/types';
+import { useAuth } from '@/context/AuthContext';
 
 const Home = () => {
-  const [productsByCategory, setProductsByCategory] = useState<
-    Record<string, Product[]>
-  >({});
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("");
-  const [filter, setFilter] = useState("All");
+  const [productsByCategory, setProductsByCategory] = useState<Record<string, Product[]>>({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeTab, setActiveTab] = useState('');
+  const [filter, setFilter] = useState('All');
+
+  const { isAuthenticated, signOut } = useAuth();
+
+  const handleSignOut = () => {
+    if (confirm("Confirm sign out?")) {
+      signOut();
+    }
+  };
+
+  const handleClear = () => {
+    setSearchTerm('');
+    setFilter('All');
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,14 +44,8 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const handleClear = () => {
-    setSearchTerm("");
-    setFilter("All");
-  };
-
-  // const categories = Object.keys(productsByCategory);
   const categories = Object.keys(productsByCategory).sort((a, b) =>
-    a.localeCompare(b, undefined, { sensitivity: "base" })
+    a.localeCompare(b, undefined, { sensitivity: 'base' })
   );
 
   return (
@@ -49,13 +53,14 @@ const Home = () => {
       <Head>
         <title>Smokers Haven Inventory</title>
       </Head>
+
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.5rem",
-          marginBottom: "1rem",
-          justifyContent: "space-between",
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
+          marginBottom: '1rem',
+          justifyContent: 'space-between',
         }}
       >
         <input
@@ -64,11 +69,11 @@ const Home = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search flavor..."
           style={{
-            flex: "1 1 200px",
-            minWidth: "0",
-            padding: "0.5rem",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
+            flex: '1 1 200px',
+            minWidth: '0',
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
           }}
         />
 
@@ -76,10 +81,10 @@ const Home = () => {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           style={{
-            flex: "0 1 150px",
-            padding: "0.5rem",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
+            flex: '0 1 150px',
+            padding: '0.5rem',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
           }}
         >
           <option>All</option>
@@ -89,19 +94,37 @@ const Home = () => {
           <option>Expiring Soon</option>
         </select>
         <button
-          onClick={handleClear}
-          style={{
-            flex: "0 1 100px",
-            padding: "0.5rem",
-            background: "red",
-            color: "white",
-            border: "none",
-            borderRadius: "25px",
-            cursor: "pointer",
-          }}
-        >
-          Clear
-        </button>
+              onClick={handleClear}
+              style={{
+                flex: '0 1 100px',
+                padding: '0.5rem',
+                background: 'red',
+                color: 'white',
+                border: 'none',
+                borderRadius: '25px',
+                cursor: 'pointer',
+              }}
+            >
+              Clear
+            </button>
+        {isAuthenticated && (
+                     <button
+              onClick={handleSignOut}
+              style={{
+                flex: '0 1 120px',
+                padding: '0.5rem',
+                background: '#4a5568',
+                color: 'white',
+                border: 'none',
+                borderRadius: '25px',
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              Sign Out
+            </button>
+          
+        )}
       </div>
 
       <div className="tabs-container">
@@ -110,7 +133,7 @@ const Home = () => {
             <button
               key={cat}
               onClick={() => setActiveTab(cat)}
-              className={activeTab === cat ? "active-tab" : ""}
+              className={activeTab === cat ? 'active-tab' : ''}
             >
               {cat}
             </button>
@@ -131,7 +154,7 @@ const Home = () => {
       <style jsx>{`
         .tabs-container {
           overflow-x: auto;
-          margin-bottom: 0.25rem; /* reduced spacing */
+          margin-bottom: 0.25rem;
         }
 
         .tabs-scroll {
@@ -143,16 +166,15 @@ const Home = () => {
         .tabs-scroll button {
           white-space: nowrap;
           padding: 0.5rem 1rem;
-          background-color: #ccc; /* ⬅️ slightly darker */
+          background-color: #ccc;
           border: none;
           border-radius: 5px;
           cursor: pointer;
           font-weight: 500;
-          transition: background-color 0.2s ease;
         }
 
         .tabs-scroll button:hover {
-          background-color: #bbb; /* optional hover effect */
+          background-color: #bbb;
         }
 
         .tabs-scroll button.active-tab {
@@ -161,17 +183,7 @@ const Home = () => {
         }
 
         .tab-content {
-          margin-top: 0.25rem; /* reduced space between tabs and table */
-        }
-
-        @media (max-width: 768px) {
-          .tabs-container {
-            margin-bottom: 0.1rem;
-          }
-
-          .tab-content {
-            margin-top: 0.1rem;
-          }
+          margin-top: 0.25rem;
         }
       `}</style>
     </Layout>
