@@ -15,7 +15,9 @@ const AuthContext = createContext<AuthContextType>({
   signOut: () => {},
 });
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -37,7 +39,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated: authenticated, authenticate, signOut }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated: authenticated, authenticate, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
