@@ -1,121 +1,157 @@
+````markdown
 # Smokers Haven Inventory
 
-A responsive inventory management system tailored for Smokers Haven, designed to streamline product tracking, monitor expiry dates, and provide stock level alerts.
-
-## Features
-
-* **Product Tracking**: Maintain detailed records of all products.
-* **Expiry Date Monitoring**: Keep track of product expiration to ensure freshness.
-* **Stock Level Alerts**: Receive notifications when stock levels fall below predefined thresholds.
+A responsive inventory management system tailored for **Smokers Haven**, designed to streamline product tracking, monitor expiry dates, provide stock level alerts, and enforce secure access via PIN-based authentication.
 
 ## Live Demo
 
-Experience the application live at: [sh-stock-tracking.vercel.app](https://sh-stock-tracking.vercel.app)
+[sh-stock-tracking.vercel.app](https://sh-stock-tracking.vercel.app)
+
+## Features
+
+- **Secure Authentication**
+  - 6-digit PIN-based login screen on app start
+  - Session lasts for 15 minutes, with automatic sign-out on expiry
+- **Product Tracking**  
+  Maintain detailed records of products (flavor, store & home quantities).
+- **Expiry Date Monitoring**  
+  Automatically calculate days left until expiry and flag items that have expired or are expiring soon.
+- **Stock Level Alerts**  
+  Highlight products with low stock (“Need to Order”) versus those in good standing.
+- **Search & Filter**  
+  Quickly find products by flavor using the search bar.
+- **Debounced Updates & Notifications**  
+  Editing a quantity sends debounced writes to Firestore and shows toast feedback.
+
+## Technologies
+
+- **Next.js** (React framework for SSR & SSG)
+- **TypeScript** (for type safety)
+- **React** (UI components)
+- **Firebase**
+  - **Authentication** for PIN login & session management
+  - **Firestore** for real-time product data
+- **CSS Modules** (component-scoped styling)
+- **react-hot-toast** for in-app notifications
+
+## Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/rob2rhyme/sh-stock-tracking.git
+   cd sh-stock-tracking
+   ```
+````
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
+
+3. **Configure Firebase**
+
+   - Create a Firebase project with **Authentication** and **Firestore** enabled.
+   - In your project root, create a `.env.local` with:
+
+     ```env
+     NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+     NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+     NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+     NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+     NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+     ```
+
+   - In Firestore, under `pinAuth/userPin`, store:
+
+     ```json
+     {
+       "pin": "123456",
+       "isValid": true
+     }
+     ```
+
+4. **Run the development server**
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+   Visit [http://localhost:3000](http://localhost:3000). You’ll be prompted to enter your 6-digit PIN before accessing any page.
+
+5. **Build for production**
+
+   ```bash
+   npm run build
+   npm start
+   # or
+   yarn build && yarn start
+   ```
 
 ## Project Structure
 
 ```
 sh-stock-tracking/
-├── public/                 # Static assets (images, icons, etc.)
-├── src/                    # Source code
-│   ├── components/         # Reusable React components
-│   ├── pages/              # Next.js pages
-│   ├── styles/             # CSS/SCSS stylesheets
-│   └── utils/              # Utility functions and helpers
-├── .gitignore              # Specifies files to ignore in Git
-├── README.md               # Project documentation
-├── next.config.js          # Next.js configuration
-├── tsconfig.json           # TypeScript compiler configuration
-└── vercel.json             # Vercel deployment configuration
+├── public/
+├── src/
+│   ├── components/         # Reusable React components (e.g. TabPanel, Footer)
+│   ├── context/            # AuthContext for session management
+│   ├── pages/              # Next.js page routes (including login.tsx)
+│   ├── styles/             # CSS Modules (e.g. TabPanel.module.css, Footer.module.css)
+│   ├── types.ts            # TypeScript types (e.g. Product)
+│   └── utils/              # Firebase client & helpers
+├── .env.local              # Firebase configuration (not committed)
+├── .gitignore
+├── next.config.js
+├── tsconfig.json
+├── package.json
+├── package-lock.json
+├── README.md
+└── vercel.json
 ```
 
-## Technologies Used
+## Key Components
 
-* **Next.js**: React framework for server-side rendering and static site generation.
-* **TypeScript**: Typed superset of JavaScript for enhanced code quality.
-* **CSS**: Styling of components and layouts.
+- **AuthContext** (`src/context/AuthContext.tsx`)
+  Manages 15-minute session, auto-logout on expiry, and exposes `isAuthenticated`, `authenticate()`, and `signOut()`.
+- **Login Page** (`src/pages/login.tsx`)
+  PIN entry modal that redirects back to the requested page after successful login.
+- **TabPanel** (`src/components/TabPanel.tsx`)
+  Displays inventory tables with inline editing (protected by authentication) and debounced Firestore writes.
+- **Footer** (`src/components/Footer.tsx`)
+  Shows dynamic copyright.
 
-## Getting Started
+## Configuration
 
-To set up the project locally:
+- **`next.config.js`**
 
-1. **Clone the repository:**
+  - React strict mode enabled
+  - Image domains whitelisted (e.g. Firebase Storage)
 
-   ```bash
-   git clone https://github.com/rob2rhyme/sh-stock-tracking.git
-   cd sh-stock-tracking
-   ```
-
-2. **Install dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-3. **Run the development server:**
-
-   ```bash
-   npm run dev
-   ```
-
-   Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
-
-## Importing Categories via JSON
-
-You can add new product categories and their items by uploading a properly formatted JSON file using the **Import JSON** button on the main page (next to the **Clear** button). Only files matching the format below will be accepted.
-
-### Required JSON Shape
-
-```json
-{
-  "name": "My New Category",
-  "products": [
-    {
-      "flavor": "Vanilla Dream",
-      "store": 12,
-      "home": 4,
-      "expiryDate": "2025-07-15"
-    },
-    {
-      "flavor": "Mint Blast",
-      "store": 8,
-      "home": 2,
-      "expiryDate": "2025-08-01"
-    }
-    // …more products…
-  ]
-}
-```
-
-* **`name`** (string): the category label.
-* **`products`** (array): list of product objects, each with:
-
-  * **`flavor`** (string)
-  * **`store`** (number)
-  * **`home`** (number)
-  * **`expiryDate`** (string in `YYYY-MM-DD` format)
-
-Invalid files (wrong types, missing fields, or extra keys) will be rejected with an error message.
-
-## Suggested Additional Features
-
-To enhance the functionality and user experience of the inventory system, consider implementing the following features:
-
-* **User Authentication**: Secure login system to manage access control.
-* **Role-Based Access Control (RBAC)**: Differentiate permissions between admins, managers, and staff.
-* **Barcode Scanning Integration**: Facilitate quick product entry and retrieval using barcode scanners.
-* **Inventory Reports**: Generate downloadable reports (PDF/CSV) for stock analysis.
-* **Real-Time Notifications**: Implement alerts for low stock or upcoming expirations via email or in-app notifications.
-* **Audit Logs**: Track changes made to inventory for accountability.
-* **Mobile Responsiveness**: Optimize the application for mobile devices to allow on-the-go access.
-* **Search and Filter Functionality**: Enhance product lookup with advanced search and filtering options.
-* **Integration with Suppliers**: Automate restocking by connecting with supplier APIs.
-* **Dashboard Analytics**: Visual representations of inventory trends and statistics.
+- **`tsconfig.json`**
+  TypeScript compiler options (paths, strictness).
+- **`vercel.json`**
+  Vercel deployment settings.
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
+Contributions are welcome! Please fork the repo and open a pull request:
+
+1. Fork →
+2. Create feature branch (`git checkout -b feature/YourFeature`) →
+3. Commit changes (`git commit -m "Add YourFeature"`) →
+4. Push to branch (`git push origin feature/YourFeature`) →
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is open–sourced under the [MIT License](LICENSE).
+
+```
+
+```

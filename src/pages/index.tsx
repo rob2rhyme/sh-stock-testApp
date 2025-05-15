@@ -7,12 +7,7 @@ import TabPanel from "@/components/TabPanel";
 import { Product, ProductCategory } from "@/types";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/utils/firebase";
-import {
-  collection,
-  writeBatch,
-  doc,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, writeBatch, doc, onSnapshot } from "firebase/firestore";
 
 const Home = () => {
   const router = useRouter();
@@ -81,7 +76,7 @@ const Home = () => {
     if (typeof json.name !== "string" || !Array.isArray(json.products)) {
       alert(
         "Invalid JSON shape. Expected:\n" +
-        "{ name: string; products: Product[] }"
+          "{ name: string; products: Product[] }"
       );
       e.target.value = "";
       return;

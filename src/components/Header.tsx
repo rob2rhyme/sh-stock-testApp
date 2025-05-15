@@ -1,8 +1,8 @@
 // src/components/Header.tsx
 
-import React from 'react';
-import Image from 'next/image';
-import styles from '../styles/Header.module.css';
+import React from "react";
+import Image from "next/image";
+import styles from "../styles/Header.module.css";
 
 const Header = () => {
   return (

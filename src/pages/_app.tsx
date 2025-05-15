@@ -9,22 +9,46 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <Toaster
         position="top-right"
-        toastOptions={{
-          style: {
-            border: "1px solid #713200",
-            padding: "16px",
-            color: "#713200",
-          },
-          success: {
-            icon: "✅",
-          },
-          error: {
-            icon: "❌",
-          },
-        }}
+        toastOptions={
+          {
+            /* unchanged */
+          }
+        }
       />
 
-      <Component {...pageProps} />
+      <RequireAuth>
+        <Component {...pageProps} />
+      </RequireAuth>
     </AuthProvider>
   );
+}
+
+// client-side route guard
+import { useRouter } from "next/router";
+import { useAuth } from "@/context/AuthContext";
+import { useEffect, ReactNode } from "react";
+
+function RequireAuth({ children }: { children: ReactNode }) {
+  const { isAuthenticated, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    // only redirect *after* we know auth status
+    if (!loading && !isAuthenticated && router.pathname !== "/login") {
+      router.replace(`/login?next=${encodeURIComponent(router.pathname)}`);
+    }
+  }, [isAuthenticated, loading, router]);
+
+  // while checking auth or redirecting, you could show a loader here
+  if (!isAuthenticated && router.pathname !== "/login") {
+    return null;
+  }
+  // while we’re checking localStorage, don’t render anything (or show a loader)
+  if (loading) {
+    return null;
+  }
+
+  // once loading is false, either you’re authenticated (and render),
+  // or you’re on /login (and render), or you’ve been sent to /login already.
+  return <>{children}</>;
 }
